@@ -1,0 +1,76 @@
+/* ppt-upgrade.css — taruh SETELAH </style> bawaan, di dalam <head> */
+
+/* ===== 1. TECH STACK: menyamping, chip besar, judul di tengah ===== */
+#tech,#kn-stack{justify-content:center}
+#tech{padding-top:calc(var(--header-h) + 3vh);padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+#tech .chapter-label,#kn-stack .chapter-label{display:flex;justify-content:center}
+#tech>h3,#kn-stack>h3,#tech>.lead{text-align:center;margin-left:auto;margin-right:auto}
+#tech>.lead{max-width:60ch;font-size:.95rem;margin-top:12px!important}
+#tech .tech-groups,#kn-stack .tech-groups{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:30px!important}
+#tech .tech-group,#kn-stack .tech-group{grid-column:span 6;padding:22px 22px 26px;border:1px solid var(--lx-line);border-radius:18px;background:linear-gradient(160deg,rgba(139,92,246,.08),rgba(255,255,255,.02) 60%)}
+#tech .tech-group:nth-child(1){grid-column:span 7}
+#tech .tech-group:nth-child(2){grid-column:span 5}
+#tech .tech-group:nth-child(3){grid-column:span 4}
+#tech .tech-group:nth-child(4){grid-column:span 3}
+#tech .tech-group:nth-child(5){grid-column:span 5}
+#kn-stack .tech-group{border-color:var(--kn-line);background:rgba(255,255,255,.6)}
+#kn-stack .tech-group:nth-child(1){grid-column:span 5}
+#kn-stack .tech-group:nth-child(2){grid-column:span 7}
+#kn-stack .tech-group:nth-child(5){grid-column:span 12}
+#tech .tech-group h4,#kn-stack .tech-group h4{justify-content:center;font-size:.8rem;margin-bottom:18px;text-align:center}
+#tech .tech-group h4::before,#kn-stack .tech-group h4::before{content:"";flex:1;height:1px;background:var(--lx-line)}
+#kn-stack .tech-group h4::before,#kn-stack .tech-group h4::after{background:var(--kn-line)}
+#tech .chip-row,#kn-stack .chip-row{justify-content:center;gap:12px}
+#tech .chip,#kn-stack .chip{font-size:1.02rem;padding:12px 22px;gap:12px;min-height:52px;backdrop-filter:none;-webkit-backdrop-filter:none}
+#tech .chip .tl,#kn-stack .chip .tl{width:26px;height:26px}
+.chip .mono{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 4px;border-radius:7px;font:700 .64rem var(--fd);letter-spacing:.02em;color:var(--c);background:color-mix(in srgb,var(--c) 16%,transparent);border:1px solid color-mix(in srgb,var(--c) 45%,transparent)}
+@media(max-width:1100px){#tech .tech-group,#tech .tech-group:nth-child(n),#kn-stack .tech-group:nth-child(n){grid-column:span 6}#tech .tech-group:nth-child(1),#kn-stack .tech-group:nth-child(5){grid-column:span 12}}
+@media(max-width:640px){#tech .tech-group:nth-child(n),#kn-stack .tech-group:nth-child(n){grid-column:span 12}#tech .chip,#kn-stack .chip{font-size:.92rem;padding:10px 16px}}
+
+/* ===== 2. PARALLAX ===== */
+section.slide{isolation:isolate}
+.px-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.px-bg i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;will-change:translate}
+.px-bg .a{width:38vw;height:38vw;left:-10vw;top:4%;background:var(--o1)}
+.px-bg .b{width:30vw;height:30vw;right:-8vw;top:38%;background:var(--o2)}
+.px-bg .c{width:22vw;height:22vw;left:40%;bottom:-6%;background:var(--o1);opacity:.28}
+.px-bg .g{inset:-20% 0;border-radius:0;filter:none;opacity:.5;background-image:linear-gradient(var(--gl) 1px,transparent 1px),linear-gradient(90deg,var(--gl) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000,transparent 75%)}
+section.slide{--o1:rgba(139,92,246,.35);--o2:rgba(232,121,249,.22);--gl:rgba(244,244,248,.05)}
+section.kn{--o1:rgba(173,138,82,.30);--o2:rgba(75,52,35,.16);--gl:rgba(41,34,27,.06)}
+[data-px]{will-change:translate}
+
+/* ===== 3. ANIMASI MASUK (varian) ===== */
+[data-reveal][data-anim]{transition-property:opacity,transform,filter}
+[data-anim=left]{transform:translateX(-56px)}
+[data-anim=right]{transform:translateX(56px)}
+[data-anim=zoom]{transform:scale(.9)}
+[data-anim=blur]{transform:translateY(24px);filter:blur(12px)}
+[data-anim=pop]{transform:translateY(18px) scale(.86)}
+[data-reveal][data-anim].in{transform:none;filter:none}
+.mask-line{display:block;overflow:hidden}
+.mask-line>span{display:block;transform:translateY(110%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.in .mask-line>span,.mask-line.in>span{transform:none}
+.chip{animation:chipFloat 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-.45s)}
+@keyframes chipFloat{0%,100%{translate:0 0}50%{translate:0 -3px}}
+.chapter-label::before{transform-origin:left;transition:transform 1s cubic-bezier(.16,1,.3,1)}
+[data-reveal]:not(.in) .chapter-label::before{transform:scaleX(0)}
+.flow-step::before{transform-origin:top;transform:scaleY(0);transition:transform .9s .3s cubic-bezier(.16,1,.3,1)}
+.flow-step.in::before{transform:scaleY(1)}
+.arch-arrow{transform-origin:top;transform:scaleY(0);transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.arch-arrow.in{transform:scaleY(1)}
+.tl-card{background:linear-gradient(var(--kn-gold),var(--kn-gold)) top left/0 2px no-repeat;border-top-color:transparent;transition:background-size 1.1s cubic-bezier(.16,1,.3,1)}
+.tl-card.in{background-size:100% 2px}
+
+/* ===== 4. TOPBAR ADAPTIF di slide terang ===== */
+body.on-light .topbar{background:linear-gradient(to bottom,rgba(251,248,243,.96),rgba(251,248,243,.6) 70%,transparent)}
+body.on-light .topbar .brand,body.on-light .chapter-pill{color:#29221B}
+body.on-light .icon-btn{color:#4B3423;border-color:rgba(41,34,27,.22)}
+body.on-light .progress-track{background:rgba(41,34,27,.08)}
+.topbar,.icon-btn,.progress-track{transition:background .4s,color .4s,border-color .4s}
+
+/* ===== 5. PERFORMA ===== */
+.value-card,.contact-card,.vision-card{-webkit-backdrop-filter:none;backdrop-filter:none}
+@media(prefers-reduced-motion:reduce){
+ [data-anim],.mask-line>span,.flow-step::before,.arch-arrow,.chip{transform:none!important;filter:none!important;animation:none!important;translate:none!important}
+ .px-bg i{translate:none!important}
+}
